@@ -35,17 +35,31 @@ namespace Services
 			}
 		}
 
-		private static DebugCameraController cameras;
-		public static DebugCameraController Cameras 
+		private static CameraManager cameras;
+		public static CameraManager Cameras 
 		{
 			get
 			{
 				if (cameras == null)
 				{
-					cameras = new DebugCameraController ();
+					cameras = new CameraManager ();
 				}
 
 				return cameras;
+			}
+		}
+
+		private static EntityManager entityManager;
+		public static EntityManager EntityManager 
+		{
+			get
+			{
+				if (entityManager == null)
+				{
+					entityManager = new EntityManager ();
+				}
+
+				return entityManager;
 			}
 		}
 	}

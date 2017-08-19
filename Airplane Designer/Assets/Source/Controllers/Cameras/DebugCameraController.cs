@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-	public class DebugCameraController: IUpdateObserver
+	public class DebugCameraController: ICameraController, IUpdateObserver
 	{
 		public const string DEBUG_CAMERA_NAME = "DebugCamera";
 		public const string DEBUG_CAMERA_FAR_NAME = "DebugCameraFar";
@@ -32,7 +32,7 @@ namespace Controllers
 		private DebugCameraControls debugControls;
 		private Transform currentHoverObject;
 
-		public DebugCameraController ()
+		public DebugCameraController()
 		{
 			// Near clip camera
 			GameObject camObject = new GameObject(DEBUG_CAMERA_NAME);
@@ -40,8 +40,19 @@ namespace Controllers
 			Camera.depth = 1;
 			debugControls = new DebugCameraControls ();
 			debugControls.Initialize (Camera);
+			Deactivate ();
+		}
 
+		public void Activate()
+		{
 			Service.FrameUpdate.RegisterForUpdate (this);
+			Camera.gameObject.SetActive (true);
+		}
+
+		public void Deactivate()
+		{
+			Service.FrameUpdate.UnregisterForUpdate (this);
+			Camera.gameObject.SetActive (false);
 		}
 
 		public void Update(float dt)
@@ -58,6 +69,11 @@ namespace Controllers
 			{
 				currentHoverObject = null;
 			}
+		}
+
+		public Camera GetCamera()
+		{
+			return Camera;
 		}
 	}
 }

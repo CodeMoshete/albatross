@@ -252,7 +252,7 @@ namespace Components
         private Vector3 GetAxisPlaneIntersect(Vector2 screenPosition, Vector3 planeNormal)
         {
             Vector3 intersect;
-            Ray ray = Service.Cameras.Camera.ScreenPointToRay(screenPosition);
+			Ray ray = Service.Cameras.CurrentCamera.ScreenPointToRay(screenPosition);
             MathEditorUtils.LinePlaneIntersection(out intersect, ray.origin, 
                                             ray.direction, planeNormal, 
                                             currentPlanePt);
@@ -263,7 +263,7 @@ namespace Components
         {
             Transform returnTrans = null;
             RaycastHit hitDataGizmo;
-            Ray ray = Service.Cameras.Camera.ScreenPointToRay(screenPosition);
+			Ray ray = Service.Cameras.CurrentCamera.ScreenPointToRay(screenPosition);
             Physics.Raycast(ray, out hitDataGizmo, Mathf.Infinity, layerMaskGizmos);
 
             // Test against gizmos first. If no gizmos, select world objects
@@ -326,8 +326,8 @@ namespace Components
 
         private void ScaleGizmoForDistance()
         {
-			float fov = Service.Cameras.Camera.fieldOfView / 2f;
-            float dst = Vector3.Distance(Service.Cameras.Camera.transform.position, gizmo.position);
+			float fov = Service.Cameras.CurrentCamera.fieldOfView / 2f;
+			float dst = Vector3.Distance(Service.Cameras.CurrentCamera.transform.position, gizmo.position);
             float defaultSize = Mathf.Sin(fov * Mathf.Deg2Rad) * EditorConstants.GIZMO_REFERENCE_DIST;
             float defaultGizmoSize = defaultSize * EditorConstants.GIZMO_RELATIVE_SCALE;
             float trueSize = Mathf.Sin(fov * Mathf.Deg2Rad) * dst;

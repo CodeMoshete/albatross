@@ -50,7 +50,32 @@ namespace Models.Shapes
 					triangleIndices.Add (GetIndexForVertex (p2));
 				}
 
-				List<int> triangleIndecesReversed = triangleIndices;
+				// Create top Side
+				List<int> triangleIndecesReversed = new List<int>();
+				for (int i = triangleIndices.Count - 1; i >= 0; i--)
+				{
+					triangleIndecesReversed.Add(triangleIndices[i] + halfVertLen);
+				}
+				triangleIndices.AddRange (triangleIndecesReversed);
+
+				// Add edges
+				List<int> edgeIndeces = new List<int>();
+				for(int i = 0; i < halfVertLen; i++)
+				{
+					int leftBottom = i;
+					int rightBottom = (i == halfVertLen - 1 ? 0 : i + 1);
+					int leftTop = i + halfVertLen;
+					int rightTop = (i == halfVertLen - 1 ? halfVertLen : i + halfVertLen + 1);
+
+					edgeIndeces.Add (leftTop);
+					edgeIndeces.Add (rightTop);
+					edgeIndeces.Add (leftBottom);
+
+					edgeIndeces.Add (rightBottom);
+					edgeIndeces.Add (leftBottom);
+					edgeIndeces.Add (rightTop);
+				}
+				triangleIndices.AddRange (edgeIndeces);
 
 				tris = triangleIndices.ToArray();
 			}

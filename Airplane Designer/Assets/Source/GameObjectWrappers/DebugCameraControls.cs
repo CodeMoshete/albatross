@@ -2,7 +2,7 @@
 
 namespace Cameras.ControlSystems
 {
-    public class DebugCameraControls
+	public class DebugCameraControls
     {
         private readonly Vector3 CAM_START_POS = new Vector3(0f, 1.3f, 1.2f);
         private readonly Vector3 CAM_START_ROT = new Vector3(25f, 185f, 0f);
@@ -14,6 +14,7 @@ namespace Cameras.ControlSystems
         private bool isDragging = false;
         private bool isDraggingOrbit = false;
         private bool isOrbiting = false; 
+		private bool isPanning = false;
         private bool canScroll = true;
         private float speedMult = 1f;
         private Vector3 oldMousePos;
@@ -35,6 +36,20 @@ namespace Cameras.ControlSystems
 
         public void Update(float dt)
         {
+			if (Input.GetMouseButton (2) && !isDragging)
+			{
+				if (isPanning)
+				{
+
+				}
+				Debug.Log ("Mouse wheel button");
+			}
+
+			if (!Input.GetMouseButtonUp (2) && isPanning)
+			{
+				
+			}
+
             if (Input.GetKey(KeyCode.W) && isDragging || isDraggingOrbit)
             {
 				Vector3 fwdSpeed = new Vector3(0f, 0f, moveSpeed * speedMult);
@@ -147,7 +162,7 @@ namespace Cameras.ControlSystems
             {
                 isDraggingOrbit = false;
             }
-            
+
             if (Input.GetKeyDown(KeyCode.LeftAlt) && orbitContainer != null)
             {
                 isOrbiting = true;

@@ -4,7 +4,7 @@ using Services;
 
 namespace Utils
 {
-    public static class UnityEditorUtils
+    public static class EditorUtils
     {
         private static List<Material> materials;
         private static List<Mesh> meshes;
@@ -356,7 +356,7 @@ namespace Utils
 
         public static Vector3 GetGroundPositionFromScreenPoint(Vector3 screenPoint)
         {
-            Ray camRay = Service.Cameras.Camera.ScreenPointToRay(Input.mousePosition);
+			Ray camRay = Service.Cameras.CurrentCamera.ScreenPointToRay(Input.mousePosition);
             return GetGroundPositionFromCamRay(camRay);
         }
 
@@ -389,7 +389,7 @@ namespace Utils
                 layerMaskObjects = LayerMask.GetMask(objectLayer);
             }
 
-            Ray ray = Service.Cameras.Camera.ScreenPointToRay(screenPoint);
+			Ray ray = Service.Cameras.CurrentCamera.ScreenPointToRay(screenPoint);
             Physics.Raycast(ray, out hitDataGizmo, Mathf.Infinity, layerMaskObjects);
 
             // Test against gizmos first. If no gizmos, select world objects
@@ -399,7 +399,7 @@ namespace Utils
             }
             else
             {
-                returnPos = UnityEditorUtils.GetGroundPositionFromCamRay(ray);
+                returnPos = EditorUtils.GetGroundPositionFromCamRay(ray);
             }
 
             return returnPos;
@@ -417,7 +417,7 @@ namespace Utils
                 List<GameObject> children;
                 if (affectChildren)
                 {
-                    children = UnityEditorUtils.GetAllChildren(parent.gameObject);
+                    children = EditorUtils.GetAllChildren(parent.gameObject);
                 }
                 else
                 {

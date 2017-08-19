@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Models.Shapes
 {
@@ -14,7 +15,7 @@ namespace Models.Shapes
 			// Two height layers
 			for (int i = 0; i < 2; i++)
 			{
-				// Four corners
+				// Four corners in counter-clockwise formation
 				for (int j = 0; j < 4; j++)
 				{
 					int index = 4 * i + j;
@@ -28,6 +29,11 @@ namespace Models.Shapes
 			}
 
 			GenerateTrisForShape ();
+		}
+
+		public void SetVerts(List<Vector3> ccwShapePoints)
+		{
+			// Do nothing for this shape
 		}
 
 		public Vector3[] GetVertices()
