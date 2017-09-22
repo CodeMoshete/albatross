@@ -23,6 +23,8 @@ namespace Controllers.Scenes
 		private EditorInterfaceController interfaceController;
 		private EditorModeManager modeManager;
 
+		private SelectionController selectionController;
+
 		public void Load(SceneLoadedCallback onLoadedCallback, object passedParams)
 		{
 			EditorStateParams loadParams = (EditorStateParams)passedParams;
@@ -37,6 +39,7 @@ namespace Controllers.Scenes
 			Service.FrameUpdate.RegisterForUpdate (this);
 			interfaceController = new EditorInterfaceController (OnBuildPressed, OnDraftPressed);
 			RenderTestMesh ();
+			selectionController = new SelectionController ();
 		}
 				
 		private void RenderTestMesh()
@@ -86,6 +89,8 @@ namespace Controllers.Scenes
 		public void Unload()
 		{
 			Service.FrameUpdate.UnregisterForUpdate(this);
+			selectionController.Unload ();
+			selectionController = null;
 		}
 	}
 }

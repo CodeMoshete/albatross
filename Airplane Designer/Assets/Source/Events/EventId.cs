@@ -9,6 +9,7 @@ namespace Events
 		PlayerAimed,
 		EntitySpawned,
 		EntityDestroyed,
+		EntitySelected,
 		EntityHealthUpdate,
 		EntityMoved,
 		EntityFired,
@@ -25,6 +26,8 @@ namespace Events
 		VRControllerTouchpadPress,
 		VRControllerTouchpadDrag,
 		VRControllerTouchpadRelease,
-		DebugCameraControlsActive
+		DebugCameraControlsActive,
+		CreateButtonPressed,
+		CreationComplete
 	}
 }

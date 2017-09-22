@@ -22,10 +22,11 @@ public class EntityManager
 		return entity;
 	}
 
-	public void AddEntity(EntityBase entity)
+	public long AddEntity(EntityBase entity)
 	{
 		currentIdIndex++;
 		entities.Add (currentIdIndex, entity);
+		return currentIdIndex;
 	}
 
 	public void RemoveEntity(EntityBase entity)

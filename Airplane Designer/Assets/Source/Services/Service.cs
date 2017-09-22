@@ -62,5 +62,19 @@ namespace Services
 				return entityManager;
 			}
 		}
+
+		private static UndoController actionManager;
+		public static UndoController ActionManager 
+		{
+			get
+			{
+				if (actionManager == null)
+				{
+					actionManager = new UndoController ();
+				}
+
+				return actionManager;
+			}
+		}
 	}
 }
