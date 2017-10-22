@@ -14,6 +14,7 @@ using Controllers.UI;
 
 namespace Controllers.Scenes
 {
+	// Main scene class for the program. Encapsulates the Build and Draft editor modes.
 	public class EditorSceneController : IStateController, IUpdateObserver
 	{
 
@@ -28,7 +29,7 @@ namespace Controllers.Scenes
 		public void Load(SceneLoadedCallback onLoadedCallback, object passedParams)
 		{
 			EditorStateParams loadParams = (EditorStateParams)passedParams;
-			modeManager = new EditorModeManager ();
+			modeManager = Service.EditorModeManager;
 			modeManager.SwitchToMode (EditorMode.Build);
 			onLoadedCallback();
 		}
@@ -39,7 +40,7 @@ namespace Controllers.Scenes
 			Service.FrameUpdate.RegisterForUpdate (this);
 			interfaceController = new EditorInterfaceController (OnBuildPressed, OnDraftPressed);
 			RenderTestMesh ();
-			selectionController = new SelectionController ();
+			selectionController = Service.SelectionController;
 		}
 				
 		private void RenderTestMesh()
@@ -73,12 +74,16 @@ namespace Controllers.Scenes
 
 		private void OnBuildPressed()
 		{
-			modeManager.SwitchToMode (EditorMode.Build);
+			ChangeEditorModeAction changeModeAction = new ChangeEditorModeAction ();
+			changeModeAction.SetArguments (EditorMode.Build, Service.EditorModeManager.CurrentMode);
+			Service.ActionManager.ExecuteAction (changeModeAction);
 		}
 
 		private void OnDraftPressed()
 		{
-			modeManager.SwitchToMode (EditorMode.Draft);
+			ChangeEditorModeAction changeModeAction = new ChangeEditorModeAction ();
+			changeModeAction.SetArguments (EditorMode.Draft, Service.EditorModeManager.CurrentMode);
+			Service.ActionManager.ExecuteAction (changeModeAction);
 		}
 
 		public void Update(float dt)
@@ -89,7 +94,6 @@ namespace Controllers.Scenes
 		public void Unload()
 		{
 			Service.FrameUpdate.UnregisterForUpdate(this);
-			selectionController.Unload ();
 			selectionController = null;
 		}
 	}

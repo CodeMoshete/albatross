@@ -76,5 +76,33 @@ namespace Services
 				return actionManager;
 			}
 		}
+
+		private static SelectionController selectionController;
+		public static SelectionController SelectionController 
+		{
+			get
+			{
+				if (selectionController == null)
+				{
+					selectionController = new SelectionController ();
+				}
+
+				return selectionController;
+			}
+		}
+
+		private static EditorModeManager editorModeManager;
+		public static EditorModeManager EditorModeManager
+		{
+			get
+			{
+				if (editorModeManager == null)
+				{
+					editorModeManager = new EditorModeManager ();
+				}
+
+				return editorModeManager;
+			}
+		}
 	}
 }

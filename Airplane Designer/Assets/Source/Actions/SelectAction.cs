@@ -1,24 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Services;
+using System.Collections.Generic;
 
 public class SelectAction: IEditorAction 
 {
-	private EntityBase previousEntity;
+	private List<EntityBase> previousEntities;
 	private EntityBase selectedEntity;
+	private bool applyToCurrent;
 
-	public void SetArguments(EntityBase previousEntity, EntityBase selectedEntity)
+	public SelectAction()
 	{
-		this.previousEntity = previousEntity;
+		previousEntities = new List<EntityBase> ();
+	}
+
+	public void SetArguments(List<EntityBase> previousEntities, EntityBase selectedEntity, bool applyToCurrent)
+	{
+		this.previousEntities = previousEntities;
 		this.selectedEntity = selectedEntity;
+		this.applyToCurrent = applyToCurrent;
 	}
 
 	public void ApplyAction()
 	{
-
+		Service.SelectionController.SelectEntity (selectedEntity, applyToCurrent);
 	}
 
 	public void ReverseAction()
 	{
-
+		Service.SelectionController.DeselectEntity (selectedEntity, previousEntities);
 	}
 }

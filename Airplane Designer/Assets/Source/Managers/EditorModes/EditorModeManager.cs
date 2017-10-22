@@ -11,7 +11,7 @@ public enum EditorMode
 
 public class EditorModeManager 
 {
-	private EditorMode currentMode;
+	public EditorMode CurrentMode { get; private set; }
 	private IDictionary<EditorMode, IEditorModeController> modeControllers;
 	private IEditorModeController currentController;
 
@@ -24,7 +24,7 @@ public class EditorModeManager
 
 	public void SwitchToMode(EditorMode editorType)
 	{
-		if (editorType != currentMode)
+		if (editorType != CurrentMode)
 		{
 			if (currentController != null)
 			{
@@ -32,7 +32,7 @@ public class EditorModeManager
 			}
 			currentController = modeControllers [editorType];
 			currentController.Activate ();
-			currentMode = editorType;
+			CurrentMode = editorType;
 		}
 	}
 }
