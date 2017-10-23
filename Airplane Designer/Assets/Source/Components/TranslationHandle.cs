@@ -62,7 +62,7 @@ namespace Components
 
             GameObject gizmoBase = Resources.Load<GameObject>("TranslateGizmo");
             gizmo = GameObject.Instantiate<GameObject>(gizmoBase).transform;
-            gizmo.gameObject.SetActive(false);
+			SetActive (false);
         }
 
         /// Called when a finger touches the screen.
@@ -166,7 +166,7 @@ namespace Components
 
 			if (target == null && !isDraggingGizmo && !isOrbiting)
             {
-                gizmo.gameObject.SetActive(false);
+				SetActive (false);
             }
 
             if (isOrbiting)
@@ -186,7 +186,7 @@ namespace Components
 			if (target != null)
             {
                 currentSelected = target;
-                gizmo.gameObject.SetActive(true);
+				SetActive (true);
                 gizmo.transform.position = currentSelected.transform.position;
                 if (!snapDrag)
                 {
@@ -196,7 +196,7 @@ namespace Components
             }
             else
             {
-                gizmo.gameObject.SetActive(false);
+				SetActive (false);
             }
         }
 

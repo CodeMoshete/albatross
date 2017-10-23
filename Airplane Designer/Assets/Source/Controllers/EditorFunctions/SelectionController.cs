@@ -118,6 +118,7 @@ public class SelectionController : IUpdateObserver
 			CurrentEntities.Add (entity);
 		}
 
+		OnEntitySelectionUpdated ();
 		LogCurrentEntities ();
 	}
 
@@ -133,6 +134,7 @@ public class SelectionController : IUpdateObserver
 			CurrentEntities.AddRange (previouslySelected);
 		}
 
+		OnEntitySelectionUpdated ();
 		LogCurrentEntities ();
 	}
 
@@ -155,6 +157,11 @@ public class SelectionController : IUpdateObserver
 			entityNames += ": EntId_" + CurrentEntities [i].EntityId + ", ";
 		}
 		Debug.Log ("Selected entities: " + entityNames);
+	}
+
+	private void OnEntitySelectionUpdated()
+	{
+		Service.Events.SendEvent (EventId.EntitiesSelected, CurrentEntities);
 	}
 
 	public void Unload()

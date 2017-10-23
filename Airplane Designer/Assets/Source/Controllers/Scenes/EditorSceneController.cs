@@ -17,12 +17,12 @@ namespace Controllers.Scenes
 	// Main scene class for the program. Encapsulates the Build and Draft editor modes.
 	public class EditorSceneController : IStateController, IUpdateObserver
 	{
-
 		private GameObject dynamicMeshObj;
 		private DynamicMesh dynamicMesh;
 
 		private EditorInterfaceController interfaceController;
 		private EditorModeManager modeManager;
+		private TransformManipulatorManager handleManager;
 
 		private SelectionController selectionController;
 
@@ -41,6 +41,7 @@ namespace Controllers.Scenes
 			interfaceController = new EditorInterfaceController (OnBuildPressed, OnDraftPressed);
 			RenderTestMesh ();
 			selectionController = Service.SelectionController;
+			handleManager = new TransformManipulatorManager ();
 		}
 				
 		private void RenderTestMesh()

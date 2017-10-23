@@ -9,7 +9,7 @@ namespace Events
 		PlayerAimed,
 		EntitySpawned,
 		EntityDestroyed,
-		EntitySelected,
+		EntitiesSelected,
 		EntityHealthUpdate,
 		EntityMoved,
 		EntityFired,
